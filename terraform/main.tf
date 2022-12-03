@@ -29,7 +29,7 @@ resource "aws_internet_gateway" "aws" {
 resource "aws_eip" "aws" {
   vpc        = true
 
-  depends_on = [aws_internet_gateway.this]
+  depends_on = [aws_internet_gateway.aws]
 }
 resource "aws_nat_gateway" "default" {
   allocation_id = aws_eip.aws.id
