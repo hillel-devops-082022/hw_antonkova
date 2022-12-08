@@ -1,7 +1,7 @@
-#variable "aws" {
-#  type        = string
-#  description = "AWS key for instances"
-#}
+variable "aws" {
+  type        = string
+  description = "AWS key for instances"
+}
 
 variable "vpc_cidr" {
  type    = string
