@@ -1,2 +1,26 @@
 ---
 # tasks file for nginx
+- name: Update apt cache and install Nginx
+  ansible.builtin.apt:
+    name: nginx=1.14.0-*
+    state: present
+    update_cache: true
+
+- name: Apply Nginx template
+  ansible.builtin.template:
+    src: ../templates/default.j2
+    dest: /etc/nginx/sites-available/default
+  notify: Restart Nginx
+
+- name: Enable new site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+  notify: Restart Nginx
+
+- name: Allow all access to tcp port 80
+  ansible.builtin.ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
